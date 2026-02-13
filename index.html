@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestra Historia ❤️</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background: linear-gradient(to bottom, #ffd1dc, #fff);
+    text-align:center;
+    overflow:hidden;
+}
+
+h1{
+    margin-top:40px;
+    font-size:32px;
+}
+
+#contador{
+    font-size:22px;
+    margin:20px;
+    font-weight:bold;
+}
+
+#mensaje{
+    font-size:20px;
+    margin-top:20px;
+    color:#c2185b;
+    display:none;
+}
+
+button{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    background:#e91e63;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#ad1457;
+}
+
+.animacion{
+    position:absolute;
+    font-size:24px;
+    animation: caer linear infinite;
+}
+
+@keyframes caer{
+    from{
+        transform:translateY(-50px);
+        opacity:1;
+    }
+    to{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h1>❤️ Nuestra Historia ❤️</h1>
+
+<div id="contador"></div>
+
+<button onclick="iniciar()">🎵 Reproducir música</button>
+
+<div id="mensaje">
+    Desde el día que empezamos, mi vida es más bonita 🌷❤️
+</div>
+
+<audio id="musica" loop>
+    <source src="ibuprofeno.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+// ===== FECHA DE INICIO (CAMBIA ESTO) =====
+var fechaInicio = new Date("2025-10-04T00:00:00");
+
+// ===== CONTADOR COMPLETO =====
+function actualizarContador(){
+    var ahora = new Date();
+    var diferencia = ahora - fechaInicio;
+
+    var segundosTotales = Math.floor(diferencia / 1000);
+
+    var años = Math.floor(segundosTotales / (365*24*60*60));
+    segundosTotales %= (365*24*60*60);
+
+    var dias = Math.floor(segundosTotales / (24*60*60));
+    segundosTotales %= (24*60*60);
+
+    var horas = Math.floor(segundosTotales / (60*60));
+    segundosTotales %= (60*60);
+
+    var minutos = Math.floor(segundosTotales / 60);
+    var segundos = segundosTotales % 60;
+
+    document.getElementById("contador").innerHTML =
+        "Llevamos juntos:<br>" +
+        años + " años, " +
+        dias + " días, " +
+        horas + " horas, " +
+        minutos + " minutos y " +
+        segundos + " segundos ❤️";
+}
+
+setInterval(actualizarContador, 1000);
+actualizarContador();
+
+// ===== BOTÓN =====
+function iniciar(){
+    var audio = document.getElementById("musica");
+    audio.volume = 1.0;
+    audio.play();
+    document.getElementById("mensaje").style.display = "block";
+}
+
+// ===== CORAZONES Y TULIPANES =====
+function crearAnimacion(){
+    var elemento = document.createElement("div");
+    elemento.className = "animacion";
+    elemento.innerHTML = Math.random() > 0.5 ? "❤️" : "🌷";
+
+    elemento.style.left = Math.random() * 100 + "vw";
+    elemento.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+    document.body.appendChild(elemento);
+
+    setTimeout(function(){
+        elemento.remove();
+    }, 6000);
+}
+
+setInterval(crearAnimacion, 500);
+
+</script>
+
+</body>
+</html>
